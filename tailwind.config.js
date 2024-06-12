@@ -11,6 +11,7 @@ module.exports = {
                 'content-bg': '#232535', // Background color of the main content
                 'text-primary': '#FFFFFF', // Primary text color
                 'text-secondary': '#A1A1AA', // Secondary text color
+                'text-active': '#a793f8',
                 'active-glow': '#7D5DFE', // Glow effect color,
                 'search-bg': '#2C2E3D', // Background color of the search bar
             },
