@@ -1,4 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
+import SectionHeader from "./sectionHeader";
 
 export default function ClickGUI({ title }) {
   return (
@@ -15,11 +16,13 @@ export default function ClickGUI({ title }) {
             <h1 className="justify-self-center self-center text-2xl font-bold">
               {title}
             </h1>
-            <div className="flex flex-col items-center gap-y-1 basis-1/3">
+            <div className="flex flex-col items-center gap-y-1 overflow-y-scroll h-full">
               {/* todo: put icon next to each section */}
-              <h1 className="text-xl">section 1</h1>
-              <h1 className="text-xl">section 2</h1>
-              <h1 className="text-xl">section 3</h1>
+              {
+                Array.from(Array(10).keys()).map((i) => {
+                  return <SectionHeader title={`section ${i + 1}`}/>
+                })
+              }
             </div>
           </div>
           <div className="relative w-full h-full">

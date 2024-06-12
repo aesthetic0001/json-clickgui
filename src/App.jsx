@@ -1,4 +1,4 @@
-import ClickGUI from "./ClickGUI";
+import ClickGUI from "./components/ClickGUI";
 
 export default function App() {
   return (

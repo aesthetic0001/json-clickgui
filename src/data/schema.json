@@ -1,0 +1,38 @@
+{
+  "section one": {
+    "string field": "text",
+    "number slider": [
+      "number",
+      0,
+      100,
+      1
+    ],
+    "boolean field": "bool",
+    "color field": "color",
+    "array field": [
+      "array",
+      "string",
+      "number",
+      "bool"
+    ],
+    "object field": {
+      "string field": "text",
+      "number slider": [
+        "number",
+        0,
+        100,
+        1
+      ],
+      "boolean field": "bool",
+      "color field": "color",
+      "array field": [
+        "array",
+        "string",
+        "number",
+        "bool"
+      ]
+    }
+  },
+  "section two": {
+  }
+}
