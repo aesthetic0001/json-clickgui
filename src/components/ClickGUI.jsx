@@ -9,7 +9,7 @@ export default function ClickGUI({ title }) {
         initial={{ opacity: 0, scale: 0 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0 }}
-        className="relative flex flex-col gap-x-5 gap-y-2 w-[60%] h-[50%] p-5 bg-sidebar-bg text-text-primary rounded-3xl shadow-2xl z-0"
+        className="relative flex flex-col gap-x-5 gap-y-2 w-[60%] h-[70%] p-5 bg-sidebar-bg text-text-primary rounded-3xl shadow-2xl z-0"
       >
         <div className="flex flex-row gap-x-5 h-full items-center">
           <div className="flex flex-col gap-y-3 h-full w-full max-w-[150px]">
