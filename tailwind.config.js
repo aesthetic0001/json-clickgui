@@ -3,6 +3,9 @@ module.exports = {
     content: ["./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
         extend: {
+            fontFamily: {
+                inter: ['Inter', 'sans-serif'],
+            },
             colors: {
                 'sidebar-bg': '#1A1B25', // Background color of the sidebar
                 'content-bg': '#232535', // Background color of the main content

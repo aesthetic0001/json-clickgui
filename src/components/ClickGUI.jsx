@@ -13,10 +13,10 @@ export default function ClickGUI({ title }) {
       >
         <div className="flex flex-row gap-x-5 h-full items-center">
           <div className="flex flex-col gap-y-3 h-full w-full max-w-[150px]">
-            <h1 className="justify-self-center self-center text-2xl font-bold">
+            <h1 className="justify-self-center self-center text-2xl">
               {title}
             </h1>
-            <div className="flex flex-col items-center gap-y-2 overflow-y-scroll h-full p-2">
+            <div className="flex flex-col items-center gap-y-2 overflow-y-scroll h-full p-2 no-scrollbar">
               {/* todo: put icon next to each section */}
               {
                 Array.from(Array(10).keys()).map((i) => {
@@ -35,18 +35,12 @@ export default function ClickGUI({ title }) {
                     placeholder="Search..."
                 />
               </div>
-              <div className="flex flex-col gap-y-2 items-center overflow-y-scroll">
-                <h1 className="text-xl">feature 1</h1>
-                <h1 className="text-xl">feature 2</h1>
-                <h1 className="text-xl">feature 3</h1>
-                <h1 className="text-xl">feature 3</h1>
-                <h1 className="text-xl">feature 3</h1>
-                <h1 className="text-xl">feature 3</h1>
-                <h1 className="text-xl">feature 3</h1>
-                <h1 className="text-xl">feature 3</h1>
-                <h1 className="text-xl">feature 3</h1>
-                <h1 className="text-xl">feature 3</h1>
-                <h1 className="text-xl">feature 3</h1>
+              <div className="flex flex-col gap-y-2 items-center overflow-y-scroll no-scrollbar">
+                {
+                  Array.from(Array(10).keys()).map((i) => {
+                    return <h1 className="text-xl">{`feature ${i + 1}`}</h1>
+                  })
+                }
               </div>
             </div>
           </div>
