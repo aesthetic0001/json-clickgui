@@ -1,3 +1,9 @@
+import ClickGUI from "./ClickGUI";
+
 export default function App() {
-  return <div></div>;
+  return (
+    <div className="flex items-center justify-center w-dvw h-dvh">
+      <ClickGUI title="ClickGUI" />
+    </div>
+  );
 }
