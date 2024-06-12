@@ -1,4 +1,4 @@
-import ClickGUI from "./components/ClickGUI";
+import ClickGUI from "./components/clickGUI";
 import '@fontsource/inter'; // Defaults to weight 400
 import '@fontsource/inter/500.css'; // Weight 500
 import '@fontsource/inter/600.css'; // Weight 600
