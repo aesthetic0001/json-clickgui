@@ -7,7 +7,7 @@ import '@fontsource/inter/700.css'; // Weight 700
 export default function App() {
   return (
     <div className="flex items-center justify-center w-dvw h-dvh font-inter">
-      <ClickGUI title="ClickGUI" />
+      <ClickGUI title="config" />
     </div>
   );
 }
