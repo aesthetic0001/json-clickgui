@@ -2,8 +2,11 @@ import {AnimatePresence, motion} from "framer-motion";
 import SectionHeader from "./sectionHeader";
 import Feature from "./feature";
 import ActiveSectionContextProvider from "../context/sectionContext";
+import {useState} from "react";
 
 export default function ClickGUI({title}) {
+    const [search, setSearch] = useState("");
+
     return (
         <AnimatePresence>
             <motion.div
@@ -37,14 +40,19 @@ export default function ClickGUI({title}) {
                                     type="text"
                                     className="p-2 bg-search-bg bg-opacity-75 backdrop-blur-3xl text-text-primary placeholder-gray-100 placeholder:text-center rounded-3xl w-full outline-none"
                                     placeholder="Search..."
+                                    value={search}
+                                    onChange={(e) => {
+                                        console.log(e.target.value)
+                                        setSearch(e.target.value)
+                                    }}
                                 />
                             </div>
-                            {/*flex-grow relative w-full h-full flex flex-col*/}
                             <div
                                 className="flex-grow flex flex-col w-full h-full gap-y-2 overflow-y-scroll no-scrollbar">
                                 {
                                     Array.from(Array(10).keys()).map((i) => {
-                                        return <Feature name={`feature ${i + 1}`} description={`description ${i + 1}`}
+                                        const name = `feature ${i + 1}`
+                                        return (!search || name.toLowerCase().includes(search.toLowerCase())) && <Feature name={name} description={`description ${i + 1}`}
                                                         section={`section ${i + 1}`} key={i}/>
                                     })
                                 }
