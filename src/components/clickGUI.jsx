@@ -3,7 +3,7 @@ import SectionHeader from "./sectionHeader";
 import Feature from "./feature";
 import ActiveSectionContextProvider from "../context/sectionContext";
 import {useState} from "react";
-import BooleanField from "./featureOptions";
+import BooleanField, {SliderField} from "./featureOptions";
 
 export default function ClickGUI({title}) {
     const [search, setSearch] = useState("");
@@ -53,6 +53,7 @@ export default function ClickGUI({title}) {
                             {/*    todo: implement search again when fully ready */}
                                 <Feature name="Sample Feature" description="Description" section="section 1">
                                     <BooleanField name={"Boolean"} tooltip={"Enable this feature"} defaultValue={false}/>
+                                    <SliderField name={"Slider"} tooltip={"Change the value"} defaultValue={50} min={0} max={100} step={1}/>
                                 </Feature>
                             </div>
                         </div>
