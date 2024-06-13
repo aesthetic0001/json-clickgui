@@ -40,7 +40,7 @@ export default function ClickGUI({title}) {
                                 <input
                                     type="text"
                                     className="p-2 bg-search-bg bg-opacity-75 backdrop-blur-3xl text-text-primary placeholder-gray-100 placeholder:text-center rounded-3xl w-full outline-none"
-                                    placeholder="Search..."
+                                    placeholder="Search"
                                     value={search}
                                     onChange={(e) => {
                                         console.log(e.target.value)

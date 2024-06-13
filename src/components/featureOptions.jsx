@@ -37,23 +37,24 @@ export function SliderField({name, tooltip, defaultValue, min, max, step}) {
                 <h1 className="text-lg">{name}</h1>
                 <span className="text-gray-500 ml-2">{tooltip}</span>
             </div>
-            <div className="flex flex-col">
-                <div className="flex flex-row gap-x-4 items-center">
+                <div className="flex flex-row gap-x-2 align-text-top">
                     <span className="text-gray-500">{min}</span>
-                    <input
-                        type="range"
-                        min={min}
-                        max={max}
-                        step={step}
-                        value={value}
-                        onChange={(e) => setValue(e.target.value)}
-                        className="w-20 h-2 bg-gray-600 accent-violet-400 rounded-full"
-                        onDrag={(e) => e.preventDefault()}
-                    />
+                    <div className="flex flex-col gap-y-2">
+                        <input
+                            type="range"
+                            min={min}
+                            max={max}
+                            step={step}
+                            value={value}
+                            onChange={(e) => setValue(e.target.value)}
+                            className="w-20 h-2 bg-gray-600 accent-violet-400 rounded-full"
+                            onDrag={(e) => e.preventDefault()}
+                        />
+                        <input type="text" value={value} onChange={(e) => setValue(e.target.value)}
+                               className="w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"/>
+                    </div>
                     <span className="text-gray-500">{max}</span>
                 </div>
-                <span className="self-center text-gray-500">{value}</span>
-            </div>
         </div>
     );
 }
