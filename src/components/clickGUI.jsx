@@ -3,6 +3,7 @@ import SectionHeader from "./sectionHeader";
 import Feature from "./feature";
 import ActiveSectionContextProvider from "../context/sectionContext";
 import {useState} from "react";
+import BooleanField from "./featureOptions";
 
 export default function ClickGUI({title}) {
     const [search, setSearch] = useState("");
@@ -49,13 +50,10 @@ export default function ClickGUI({title}) {
                             </div>
                             <div
                                 className="flex-grow flex flex-col w-full h-full gap-y-2 overflow-y-scroll no-scrollbar">
-                                {
-                                    Array.from(Array(10).keys()).map((i) => {
-                                        const name = `feature ${i + 1}`
-                                        return (!search || name.toLowerCase().includes(search.toLowerCase())) && <Feature name={name} description={`description ${i + 1}`}
-                                                        section={`section ${i + 1}`} key={i}/>
-                                    })
-                                }
+                            {/*    todo: implement search again when fully ready */}
+                                <Feature name="Sample Feature" description="Description" section="section 1">
+                                    <BooleanField name={"Boolean"} tooltip={"Enable this feature"} defaultValue={false}/>
+                                </Feature>
                             </div>
                         </div>
                     </div>
