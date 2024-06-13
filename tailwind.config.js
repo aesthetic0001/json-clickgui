@@ -21,6 +21,7 @@ module.exports = {
             },
             backgroundImage: {
                 'gradient-ring': 'linear-gradient(135deg, #FF6B6B 0%, #FFD93D 50%, #6BFF6B 100%)', // Custom gradient
+                'gradient-ring-hover': 'linear-gradient(30deg, #FF6B6B 0%, #FFD93D 50%, #6BFF6B 100%)',
             }
         },
     },
