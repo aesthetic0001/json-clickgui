@@ -1,14 +1,19 @@
 import {useState} from "react";
 import clsx from "clsx";
+import useWindowSize from "../hooks/windowSize";
 
 export default function BooleanField({name, tooltip, defaultValue}) {
     const [active, setActive] = useState(defaultValue);
+    const size = useWindowSize();
 
     return (
-        <div className="flex items-center justify-between w-full p-2">
+        <div className="flex items-center justify-between w-full p-2 gap-x-2">
             <div className="flex items-center">
-                <h1 className="text-lg">{name}</h1>
-                <span className="text-gray-500 ml-2">{tooltip}</span>
+                <h1 className="text-md md:text-lg">{name}</h1>
+                {
+                    size.width > 768 &&
+                    <span className="text-gray-500 ml-2">{tooltip}</span>
+                }
             </div>
             <div className="flex items-center">
                 <button
@@ -30,12 +35,16 @@ export default function BooleanField({name, tooltip, defaultValue}) {
 
 export function SliderField({name, tooltip, defaultValue, min, max, step}) {
     const [value, setValue] = useState(defaultValue);
+    const size = useWindowSize();
 
     return (
-        <div className="flex items-center justify-between w-full p-2">
+        <div className="flex items-center justify-between w-full p-2 gap-x-2">
             <div className="flex items-center">
-                <h1 className="text-lg">{name}</h1>
-                <span className="text-gray-500 ml-2">{tooltip}</span>
+                <h1 className="text-md md:text-lg">{name}</h1>
+                {
+                    size.width > 768 &&
+                    <span className="text-gray-500 ml-2">{tooltip}</span>
+                }
             </div>
                 <div className="flex flex-row gap-x-2 align-text-top">
                     <span className="text-gray-500">{min}</span>
@@ -55,6 +64,32 @@ export function SliderField({name, tooltip, defaultValue, min, max, step}) {
                     </div>
                     <span className="text-gray-500">{max}</span>
                 </div>
+        </div>
+    );
+}
+
+export function DropdownField({name, tooltip, defaultValue, options}) {
+    const [value, setValue] = useState(defaultValue);
+    const size = useWindowSize();
+
+    return (
+        <div className="flex items-center justify-between w-full p-2 gap-x-2">
+            <div className="flex items-center">
+                <h1 className="text-md md:text-lg">{name}</h1>
+                {
+                    size.width > 768 &&
+                    <span className="text-gray-500 ml-2">{tooltip}</span>
+                }
+            </div>
+            <select
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                className="w-60 h-10 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+            >
+                {options.map((option, index) => {
+                    return <option value={option} key={index}>{option}</option>
+                })}
+            </select>
         </div>
     );
 }
