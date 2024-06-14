@@ -99,6 +99,7 @@ export function ArrayField({name, tooltip, defaultValue}) {
                         return <input
                             type="text"
                             value={item}
+                            key={index}
                             onChange={(e) => {
                                 let temp = [...value];
                                 temp[index] = e.target.value;
@@ -138,12 +139,36 @@ export function ArrayField({name, tooltip, defaultValue}) {
     );
 }
 
-// export function NestedFeatures({name, description, children}) {
-//     return (
-//         <Field name={name} tooltip={description}>
-//             <div className="flex flex-col gap-y-2 scale-75">
-//                 {children}
-//             </div>
-//         </Field>
-//     );
-// }
+export function NestedFeatures({name, tooltip, children}) {
+    // todo: collapse children when parent is collapsed
+    const [collapsed, setCollapsed] = useState(false);
+    const size = useWindowSize();
+
+    return (
+        <div className="flex flex-col justify-start items-start">
+            <div className="flex flex-row items-center w-full" onClick={() => {
+                setCollapsed(!collapsed)
+            }}>
+                <div className="flex items-center self-start">
+                    <h1 className="text-lg md:text-xl">{name}</h1>
+                    {
+                        size.width > 1000 &&
+                        <span className="text-md md:text-lg text-gray-500 ml-2">{tooltip}</span>
+                    }
+                </div>
+                <svg className={
+                    clsx("h-0 md:w-5 md:h-5 shrink-0 transition-all ease-in-out justify-self-end", collapsed ? "rotate-180" : "rotate-0")
+                } aria-hidden="true"
+                     xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+                    <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"
+                          d="M9 5 5 1 1 5"/>
+                </svg>
+            </div>
+            <div className={
+                clsx("flex flex-col transition-all ease-in-out w-full", collapsed ? "h-0 overflow-hidden" : "h-fit")
+            }>
+                {children}
+            </div>
+        </div>
+    );
+}
