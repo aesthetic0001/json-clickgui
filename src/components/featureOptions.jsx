@@ -157,7 +157,7 @@ export function NestedFeatures({name, tooltip, children}) {
                     }
                 </div>
                 <svg className={
-                    clsx("h-0 md:w-5 md:h-5 shrink-0 transition-all ease-in-out justify-self-end", collapsed ? "rotate-180" : "rotate-0")
+                    clsx("h-0 md:w-5 md:h-5 shrink-0 transition-all ease-in-out ml-auto", collapsed ? "rotate-180" : "rotate-0")
                 } aria-hidden="true"
                      xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1"
