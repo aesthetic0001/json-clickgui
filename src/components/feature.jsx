@@ -3,17 +3,17 @@ import {useState} from "react";
 import clsx from "clsx";
 
 export default function Feature({name, description, section, children}) {
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
 
     const size = useWindowSize();
 
     return (
         <div
-            className="relative bg-sidebar-bg p-3 mx-3 h-fit rounded-2xl group transition-all ease-in-out select-none"
+            className="relative bg-sidebar-bg p-3 mx-3 h-fit rounded-2xl select-none"
             tabIndex={0}>
             <div onClick={
                 () => setCollapsed(!collapsed)
-            }>
+            } className="group">
                 <h1 className="text-xl md:text-2xl group-hover:text-text-active text-text-primary transition-all ease-in-out">{name} {size.width > 768 &&
                     <span className="text-xl text-gray-600">({section})</span>}</h1>
                 <p className="text-md md:text-lg text-gray-500">{description}</p>

@@ -141,16 +141,16 @@ export function ArrayField({name, tooltip, defaultValue}) {
 
 export function NestedFeatures({name, tooltip, children}) {
     // todo: collapse children when parent is collapsed
-    const [collapsed, setCollapsed] = useState(false);
+    const [collapsed, setCollapsed] = useState(true);
     const size = useWindowSize();
 
     return (
         <div className="flex flex-col justify-start items-start">
-            <div className="flex flex-row items-center w-full" onClick={() => {
+            <div className="flex flex-row items-center w-full group" onClick={() => {
                 setCollapsed(!collapsed)
             }}>
                 <div className="flex items-center self-start">
-                    <h1 className="text-lg md:text-xl">{name}</h1>
+                    <h1 className="text-lg md:text-xl group-hover:text-text-active transition-all ease-in-out">{name}</h1>
                     {
                         size.width > 1000 &&
                         <span className="text-md md:text-lg text-gray-500 ml-2">{tooltip}</span>
