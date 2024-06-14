@@ -11,7 +11,7 @@ function Field({name, tooltip, children}) {
             <div className="flex items-center self-start">
                 <h1 className="text-md md:text-lg">{name}</h1>
                 {
-                    size.width > 768 &&
+                    size.width > 1000 &&
                     <span className="text-gray-500 ml-2">{tooltip}</span>
                 }
             </div>
@@ -46,9 +46,9 @@ export function SliderField({name, tooltip, defaultValue, min, max, step}) {
 
     return (
         <Field name={name} tooltip={tooltip}>
-            <div className="flex flex-row gap-x-2 align-text-top">
+            <div className="flex flex-row align-text-top">
                 <span className="text-gray-500">{min}</span>
-                <div className="flex flex-col gap-y-2">
+                <div className="flex flex-col gap-y-2 items-center">
                     <input
                         type="range"
                         min={min}
@@ -56,11 +56,11 @@ export function SliderField({name, tooltip, defaultValue, min, max, step}) {
                         step={step}
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
-                        className="w-20 h-2 bg-gray-600 accent-violet-400 rounded-full"
+                        className="w-full max-w-fit h-2 bg-gray-600 accent-violet-400 rounded-full"
                         onDrag={(e) => e.preventDefault()}
                     />
                     <input type="text" value={value} onChange={(e) => setValue(e.target.value)}
-                           className="w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"/>
+                           className="w-full max-w-[50%] h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 outline-none"/>
                 </div>
                 <span className="text-gray-500">{max}</span>
             </div>
@@ -76,7 +76,7 @@ export function DropdownField({name, tooltip, defaultValue, options}) {
             <select
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                className="w-60 h-10 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                className="w-1/2 h-10 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
             >
                 {options.map((option, index) => {
                     return <option value={option} key={index}>{option}</option>
@@ -124,7 +124,7 @@ export function ArrayField({name, tooltip, defaultValue}) {
                                     document.getElementById(id).children[index - 1].focus();
                                 }
                             }}
-                            className="w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                            className="w-full max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
                         />
                     })}
                     <FaPlus
