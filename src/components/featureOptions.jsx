@@ -9,7 +9,7 @@ export default function BooleanField({name, tooltip, defaultValue}) {
 
     return (
         <div className="flex items-center justify-between w-full p-2 gap-x-2">
-            <div className="flex items-center">
+            <div className="flex items-center self-start">
                 <h1 className="text-md md:text-lg">{name}</h1>
                 {
                     size.width > 768 &&
@@ -40,7 +40,7 @@ export function SliderField({name, tooltip, defaultValue, min, max, step}) {
 
     return (
         <div className="flex items-center justify-between w-full p-2 gap-x-2">
-            <div className="flex items-center">
+            <div className="flex items-center self-start">
                 <h1 className="text-md md:text-lg">{name}</h1>
                 {
                     size.width > 768 &&
@@ -75,7 +75,7 @@ export function DropdownField({name, tooltip, defaultValue, options}) {
 
     return (
         <div className="flex items-center justify-between w-full p-2 gap-x-2">
-            <div className="flex items-center">
+            <div className="flex items-center self-start">
                 <h1 className="text-md md:text-lg">{name}</h1>
                 {
                     size.width > 768 &&
@@ -102,7 +102,7 @@ export function ArrayField({name, tooltip, defaultValue, options}) {
 
     return (
         <div className="flex items-center justify-between w-full p-2 gap-x-2">
-            <div className="flex items-center">
+            <div className="flex items-center self-start">
                 <h1 className="text-md md:text-lg">{name}</h1>
                 {
                     size.width > 768 &&
