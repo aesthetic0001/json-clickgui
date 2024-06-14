@@ -27,9 +27,7 @@
       "color field": "color",
       "array field": [
         "array",
-        "string",
-        "number",
-        "bool"
+        ["string", "number", "bool"]
       ]
     }
   },
