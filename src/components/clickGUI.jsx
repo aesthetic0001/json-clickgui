@@ -3,7 +3,7 @@ import SectionHeader from "./sectionHeader";
 import Feature from "./feature";
 import ActiveSectionContextProvider from "../context/sectionContext";
 import {useState} from "react";
-import BooleanField, {ArrayField, DropdownField, SliderField} from "./featureOptions";
+import BooleanField, {ArrayField, DropdownField, NestedFeatures, SliderField} from "./featureOptions";
 
 export default function ClickGUI({title}) {
     const [search, setSearch] = useState("");

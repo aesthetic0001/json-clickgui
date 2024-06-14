@@ -137,3 +137,13 @@ export function ArrayField({name, tooltip, defaultValue}) {
         </Field>
     );
 }
+
+// export function NestedFeatures({name, description, children}) {
+//     return (
+//         <Field name={name} tooltip={description}>
+//             <div className="flex flex-col gap-y-2 scale-75">
+//                 {children}
+//             </div>
+//         </Field>
+//     );
+// }
