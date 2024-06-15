@@ -156,12 +156,12 @@ function toObject(array) {
 
 export function ObjectField({name, tooltip, defaultValue}) {
     const [value, setValue] = useState(defaultValue);
-
     const [tempArray, setTempArray] = useState(toArray(value));
+    const id = useMemo(() => Math.random().toString(36).substring(7), []);
 
     return (
         <Field name={name} tooltip={tooltip}>
-            <div className="flex flex-col gap-y-2 max-h-20 overflow-y-scroll no-scrollbar ml-auto">
+            <div className="flex flex-col gap-y-2 max-h-20 overflow-y-scroll no-scrollbar ml-auto" id={id}>
                 {/*    modify the array to change the object indirectly, then toObject when out of focus */}
                 {
                     tempArray.map((item, index) => {
@@ -181,6 +181,20 @@ export function ObjectField({name, tooltip, defaultValue}) {
                                         setValue(res);
                                         setTempArray(toArray(res));
                                     }}
+                                    onKeyUp={(e) => {
+                                        if (e.key === "Backspace" && item.key.length === 0) {
+                                            if (index > 0) document.getElementById(id).children[index - 1].children[1].focus();
+                                            let temp = [...tempArray];
+                                            temp.splice(index, 1);
+                                            setTempArray(temp);
+                                        }
+                                        if (e.key === "Enter" && !value[""]) {
+                                            setTempArray([...tempArray.slice(0, index + 1), {key: "", value: ""}, ...tempArray.slice(index + 1)]);
+                                            setTimeout(() => {
+                                                document.getElementById(id).children[index + 1].children[0].focus();
+                                            }, 0);
+                                        }
+                                    }}
                                     className="w-full max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
                                 />
                                 <input
@@ -196,6 +210,14 @@ export function ObjectField({name, tooltip, defaultValue}) {
                                         const res = toObject(tempArray)
                                         setValue(res);
                                         setTempArray(toArray(res));
+                                    }}
+                                    onKeyUp={(e) => {
+                                        if (e.key === "Enter" && !value[""]) {
+                                            setTempArray([...tempArray.slice(0, index + 1), {key: "", value: ""}, ...tempArray.slice(index + 1)]);
+                                            setTimeout(() => {
+                                                document.getElementById(id).children[index + 1].children[0].focus();
+                                            }, 0);
+                                        }
                                     }}
                                     className="w-full h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
                                 />
