@@ -151,6 +151,8 @@ function toObject(array) {
         result[item.key] = item.value;
     });
 
+    console.log(result)
+
     return result;
 }
 
@@ -187,9 +189,14 @@ export function ObjectField({name, tooltip, defaultValue}) {
                                             let temp = [...tempArray];
                                             temp.splice(index, 1);
                                             setTempArray(temp);
+                                            // needed because onBlur doesn't trigger when the input is removed
+                                            setValue(toObject(temp));
                                         }
                                         if (e.key === "Enter" && !value[""]) {
-                                            setTempArray([...tempArray.slice(0, index + 1), {key: "", value: ""}, ...tempArray.slice(index + 1)]);
+                                            setTempArray([...tempArray.slice(0, index + 1), {
+                                                key: "",
+                                                value: ""
+                                            }, ...tempArray.slice(index + 1)]);
                                             setTimeout(() => {
                                                 document.getElementById(id).children[index + 1].children[0].focus();
                                             }, 0);
@@ -213,7 +220,10 @@ export function ObjectField({name, tooltip, defaultValue}) {
                                     }}
                                     onKeyUp={(e) => {
                                         if (e.key === "Enter" && !value[""]) {
-                                            setTempArray([...tempArray.slice(0, index + 1), {key: "", value: ""}, ...tempArray.slice(index + 1)]);
+                                            setTempArray([...tempArray.slice(0, index + 1), {
+                                                key: "",
+                                                value: ""
+                                            }, ...tempArray.slice(index + 1)]);
                                             setTimeout(() => {
                                                 document.getElementById(id).children[index + 1].children[0].focus();
                                             }, 0);
