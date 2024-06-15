@@ -1,5 +1,6 @@
 import {useMemo, useState} from "react";
 import clsx from "clsx";
+import {produce} from "immer";
 import {FaPlus} from "react-icons/fa";
 import useWindowSize from "../hooks/windowSize";
 
@@ -92,46 +93,91 @@ export function ArrayField({name, tooltip, defaultValue}) {
 
     return (
         <Field name={name} tooltip={tooltip}>
-            <div className="flex flex-row gap-x-2 align-text-top">
-                <div className="flex flex-col gap-y-2 overflow-y-scroll h-20 no-scrollbar" id={id}>
-                    {/*    render the array items */}
-                    {value.map((item, index) => {
-                        return <input
-                            type="text"
-                            value={item}
-                            key={index}
-                            onChange={(e) => {
+            <div className="flex flex-col gap-y-2 overflow-y-scroll h-20 no-scrollbar ml-auto" id={id}>
+                {/*    render the array items */}
+                {value.map((item, index) => {
+                    return <input
+                        type="text"
+                        value={item}
+                        key={index}
+                        onChange={(e) => {
+                            let temp = [...value];
+                            temp[index] = e.target.value;
+                            setValue(temp);
+                        }}
+                        onKeyUp={(e) => {
+                            if (e.key === "Backspace" && value[index].length === 0) {
+                                if (index > 0) document.getElementById(id).children[index - 1].focus();
                                 let temp = [...value];
-                                temp[index] = e.target.value;
+                                temp.splice(index, 1);
+                                setValue(temp);
+                            } else if (e.key === "Enter") {
+                                setValue([...value.slice(0, index + 1), "", ...value.slice(index + 1)]);
+                                setTimeout(() => {
+                                    document.getElementById(id).children[index + 1].focus();
+                                }, 0);
+                            } else if (e.key === "ArrowDown" && index < value.length - 1) {
+                                document.getElementById(id).children[index + 1].focus();
+                            } else if (e.key === "ArrowUp" && index > 0) {
+                                document.getElementById(id).children[index - 1].focus();
+                            }
+                        }}
+                        className="w-full max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                    />
+                })}
+            </div>
+            <FaPlus
+                className="w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
+                onClick={() => {
+                    setValue([...value, ""])
+                }}/>
+        </Field>
+    );
+}
+
+export function ObjectField({name, tooltip, defaultValue}) {
+    // object with immer
+    const [value, setValue] = useState(defaultValue);
+
+    console.log(value)
+
+    return (
+        <Field name={name} tooltip={tooltip}>
+            <div className="flex flex-col gap-y-2 h-20 overflow-y-scroll no-scrollbar ml-auto">
+                {Object.keys(value).map((key, index) => {
+                    return <div className="flex flex-row gap-x-2" key={index}>
+                        <input
+                            type="text"
+                            value={key}
+                            onChange={(e) => {
+                                if (value[e.target.value]) return;
+                                let temp = produce(value, draft => {
+                                    delete draft[key];
+                                    draft[e.target.value] = value[key];
+                                });
                                 setValue(temp);
                             }}
-                            onKeyUp={(e) => {
-                                if (e.key === "Backspace" && value[index].length === 0) {
-                                    if (index > 0) document.getElementById(id).children[index - 1].focus();
-                                    let temp = [...value];
-                                    temp.splice(index, 1);
-                                    setValue(temp);
-                                } else if (e.key === "Enter") {
-                                    setValue([...value.slice(0, index + 1), "", ...value.slice(index + 1)]);
-                                    setTimeout(() => {
-                                        document.getElementById(id).children[index + 1].focus();
-                                    }, 0);
-                                } else if (e.key === "ArrowDown" && index < value.length - 1) {
-                                    document.getElementById(id).children[index + 1].focus();
-                                } else if (e.key === "ArrowUp" && index > 0) {
-                                    document.getElementById(id).children[index - 1].focus();
-                                }
-                            }}
-                            className="w-full max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                            className="w-1/2 max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 outline-none"
                         />
-                    })}
-                </div>
-                <FaPlus
-                    className="w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
-                    onClick={() => {
-                        setValue([...value, ""])
-                    }}/>
+                        <input
+                            type="text"
+                            value={value[key]}
+                            onChange={(e) => {
+                                let temp = produce(value, draft => {
+                                    draft[key] = e.target.value;
+                                });
+                                setValue(temp);
+                            }}
+                            className="w-1/2 max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 outline-none"
+                        />
+                    </div>
+                })}
             </div>
+            <FaPlus
+                className="w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
+                onClick={() => {
+                    setValue({...value, "": ""})
+                }}/>
         </Field>
     );
 }

@@ -3,7 +3,7 @@ import SectionHeader from "./sectionHeader";
 import Feature from "./feature";
 import ActiveSectionContextProvider from "../context/sectionContext";
 import {useState} from "react";
-import BooleanField, {ArrayField, DropdownField, NestedFeatures, SliderField} from "./featureOptions";
+import BooleanField, {ArrayField, DropdownField, NestedFeatures, ObjectField, SliderField} from "./featureOptions";
 
 export default function ClickGUI({title}) {
     const [search, setSearch] = useState("");
@@ -56,11 +56,9 @@ export default function ClickGUI({title}) {
                                     <SliderField name={"Slider"} tooltip={"Change the value"} defaultValue={50} min={0} max={100} step={1}/>
                                     <DropdownField name={"Dropdown"} tooltip={"Select an option"} defaultValue={"Option 1"} options={["Option 1", "Option 2", "Option 3"]}/>
                                     <ArrayField name={"Array"} tooltip={"Add or remove items"} defaultValue={["Item 1", "Item 2", "Item 3"]}/>
+                                    <ObjectField name={"Object"} tooltip={"Add or remove items"} defaultValue={{key1: "value1", key2: "value2", key3: "value3"}}/>
                                     <NestedFeatures name={"Nested Features"} tooltip={"Description"}>
                                         <BooleanField name={"Nested Boolean"} tooltip={"Enable this feature"} defaultValue={false}/>
-                                        <SliderField name={"Nested Slider"} tooltip={"Change the value"} defaultValue={50} min={0} max={100} step={1}/>
-                                        <DropdownField name={"Nested Dropdown"} tooltip={"Select an option"} defaultValue={"Option 1"} options={["Option 1", "Option 2", "Option 3"]}/>
-                                        <ArrayField name={"Nested Array"} tooltip={"Add or remove items"} defaultValue={["Item 1", "Item 2", "Item 3"]}/>
                                     </NestedFeatures>
                                 </Feature>
                             </div>
