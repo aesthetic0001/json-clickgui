@@ -1,8 +1,8 @@
 import {useMemo, useState} from "react";
 import clsx from "clsx";
-import {produce} from "immer";
 import {FaPlus} from "react-icons/fa";
 import useWindowSize from "../hooks/windowSize";
+import {produce} from "immer";
 
 function Field({name, tooltip, children}) {
     const size = useWindowSize();
@@ -127,7 +127,7 @@ export function ArrayField({name, tooltip, defaultValue}) {
                 })}
             </div>
             <FaPlus
-                className="w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
+                className="shrink-0 w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
                 onClick={() => {
                     setValue([...value, ""])
                 }}/>
@@ -135,67 +135,81 @@ export function ArrayField({name, tooltip, defaultValue}) {
     );
 }
 
+function toArray(object) {
+    return Object.keys(object).map((key) => {
+        return {
+            key: key,
+            value: object[key]
+        };
+    })
+}
+
+function toObject(array) {
+    const result = {};
+    array.forEach((item) => {
+        if (result[item.key]) return console.warn("Duplicate key found in object field")
+        result[item.key] = item.value;
+    });
+
+    return result;
+}
+
 export function ObjectField({name, tooltip, defaultValue}) {
     const [value, setValue] = useState(defaultValue);
+
+    const [tempArray, setTempArray] = useState(toArray(value));
 
     return (
         <Field name={name} tooltip={tooltip}>
             <div className="flex flex-col gap-y-2 max-h-20 overflow-y-scroll no-scrollbar ml-auto">
-                {Object.keys(value).map((key, index) => {
-                    return <div className="flex flex-row gap-x-2" key={index}>
-                        <input
-                            type="text"
-                            value={key}
-                            onChange={(e) => {
-                                if (value[e.target.value]) return;
-                                let temp = produce(value, draft => {
-                                    delete draft[key];
-                                    draft[e.target.value] = value[key];
-                                });
-                                setValue(temp);
-                            }}
-                            onKeyDown={(e) => {
-                                if (e.key === "Backspace" && key.length === 0) {
-                                    let temp = produce(value, draft => {
-                                        delete draft[key];
-                                    });
-                                    setValue(temp);
-                                }
-                                if (e.key === "Enter" && !value[""]) {
-                                    let temp = produce(value, draft => {
-                                        draft[""] = "";
-                                    });
-                                    setValue(temp);
-                                }
-                            }}
-                            className="w-1/2 max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 outline-none"
-                        />
-                        <input
-                            type="text"
-                            value={value[key]}
-                            onChange={(e) => {
-                                let temp = produce(value, draft => {
-                                    draft[key] = e.target.value;
-                                });
-                                setValue(temp);
-                            }}
-                            onKeyUp={(e) => {
-                                if (e.key === "Enter" && !value[""]) {
-                                    let temp = produce(value, draft => {
-                                        draft[""] = "";
-                                    });
-                                    setValue(temp);
-                                }
-                            }}
-                            className="w-1/2 max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 outline-none"
-                        />
-                    </div>
-                })}
+                {/*    modify the array to change the object indirectly, then toObject when out of focus */}
+                {
+                    tempArray.map((item, index) => {
+                        return (
+                            <div className="flex flex-row gap-x-2" key={index}>
+                                <input
+                                    type="text"
+                                    value={item.key}
+                                    onChange={(e) => {
+                                        const temp = produce(tempArray, draft => {
+                                            draft[index].key = e.target.value;
+                                        })
+                                        setTempArray(temp);
+                                    }}
+                                    onBlur={() => {
+                                        const res = toObject(tempArray)
+                                        setValue(res);
+                                        setTempArray(toArray(res));
+                                    }}
+                                    className="w-full max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                                />
+                                <input
+                                    type="text"
+                                    value={item.value}
+                                    onChange={(e) => {
+                                        const temp = produce(tempArray, draft => {
+                                            draft[index].value = e.target.value;
+                                        })
+                                        setTempArray(temp);
+                                    }}
+                                    onBlur={() => {
+                                        const res = toObject(tempArray)
+                                        setValue(res);
+                                        setTempArray(toArray(res));
+                                    }}
+                                    className="w-full h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                                />
+                            </div>
+                        );
+                    })
+                }
             </div>
             <FaPlus
-                className="w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
+                className="shrink-0 w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
                 onClick={() => {
-                    setValue({...value, "": ""})
+                    const res = {...value, "": ""}
+                    setValue(res)
+                    setTempArray(toArray(res))
                 }}/>
         </Field>
     );
