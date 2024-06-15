@@ -93,7 +93,7 @@ export function ArrayField({name, tooltip, defaultValue}) {
     return (
         <Field name={name} tooltip={tooltip}>
             <div className="flex flex-row gap-x-2 align-text-top">
-                <div className="flex flex-col gap-y-2" id={id}>
+                <div className="flex flex-col gap-y-2 overflow-y-scroll h-20 no-scrollbar" id={id}>
                     {/*    render the array items */}
                     {value.map((item, index) => {
                         return <input
@@ -112,10 +112,7 @@ export function ArrayField({name, tooltip, defaultValue}) {
                                     temp.splice(index, 1);
                                     setValue(temp);
                                 } else if (e.key === "Enter") {
-                                    let temp = [...value];
-                                    temp.splice(index + 2, 0, "");
-                                    setValue(temp);
-                                    // set focus when the value is rendered
+                                    setValue([...value.slice(0, index + 1), "", ...value.slice(index + 1)]);
                                     setTimeout(() => {
                                         document.getElementById(id).children[index + 1].focus();
                                     }, 0);
@@ -128,12 +125,12 @@ export function ArrayField({name, tooltip, defaultValue}) {
                             className="w-full max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
                         />
                     })}
-                    <FaPlus
-                        className="w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
-                        onClick={() => {
-                            setValue([...value, ""])
-                        }}/>
                 </div>
+                <FaPlus
+                    className="w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
+                    onClick={() => {
+                        setValue([...value, ""])
+                    }}/>
             </div>
         </Field>
     );
