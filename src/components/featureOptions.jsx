@@ -93,7 +93,7 @@ export function ArrayField({name, tooltip, defaultValue}) {
 
     return (
         <Field name={name} tooltip={tooltip}>
-            <div className="flex flex-col gap-y-2 overflow-y-scroll h-20 no-scrollbar ml-auto" id={id}>
+            <div className="flex flex-col gap-y-2 overflow-y-scroll max-h-20 no-scrollbar ml-auto" id={id}>
                 {/*    render the array items */}
                 {value.map((item, index) => {
                     return <input
@@ -136,14 +136,11 @@ export function ArrayField({name, tooltip, defaultValue}) {
 }
 
 export function ObjectField({name, tooltip, defaultValue}) {
-    // object with immer
     const [value, setValue] = useState(defaultValue);
-
-    console.log(value)
 
     return (
         <Field name={name} tooltip={tooltip}>
-            <div className="flex flex-col gap-y-2 h-20 overflow-y-scroll no-scrollbar ml-auto">
+            <div className="flex flex-col gap-y-2 max-h-20 overflow-y-scroll no-scrollbar ml-auto">
                 {Object.keys(value).map((key, index) => {
                     return <div className="flex flex-row gap-x-2" key={index}>
                         <input
@@ -157,6 +154,20 @@ export function ObjectField({name, tooltip, defaultValue}) {
                                 });
                                 setValue(temp);
                             }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Backspace" && key.length === 0) {
+                                    let temp = produce(value, draft => {
+                                        delete draft[key];
+                                    });
+                                    setValue(temp);
+                                }
+                                if (e.key === "Enter" && !value[""]) {
+                                    let temp = produce(value, draft => {
+                                        draft[""] = "";
+                                    });
+                                    setValue(temp);
+                                }
+                            }}
                             className="w-1/2 max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 outline-none"
                         />
                         <input
@@ -167,6 +178,14 @@ export function ObjectField({name, tooltip, defaultValue}) {
                                     draft[key] = e.target.value;
                                 });
                                 setValue(temp);
+                            }}
+                            onKeyUp={(e) => {
+                                if (e.key === "Enter" && !value[""]) {
+                                    let temp = produce(value, draft => {
+                                        draft[""] = "";
+                                    });
+                                    setValue(temp);
+                                }
                             }}
                             className="w-1/2 max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 outline-none"
                         />
