@@ -1,14 +1,16 @@
 import useWindowSize from "../hooks/windowSize";
 import {useState} from "react";
 import clsx from "clsx";
+import {useActiveSectionContext} from "../context/sectionContext";
 
 export default function Feature({name, description, section, children}) {
     const [collapsed, setCollapsed] = useState(true);
+    const {activeSection} = useActiveSectionContext();
 
     const size = useWindowSize();
 
     return (
-        <div
+        activeSection === section && <div
             className="relative bg-sidebar-bg p-3 mx-3 h-fit rounded-2xl select-none"
             tabIndex={0}>
             <div onClick={

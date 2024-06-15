@@ -17,19 +17,18 @@ export default function ClickGUI({title}) {
                 exit={{opacity: 0, scale: 0}}
                 className="relative flex flex-col gap-x-5 gap-y-2 w-[60%] h-[70%] p-5 bg-sidebar-bg text-text-primary rounded-3xl shadow-2xl z-0"
             >
+                <ActiveSectionContextProvider initialSection="section 1">
                 <div className="flex flex-row gap-x-5 h-full items-center">
                     <div className="flex flex-col gap-y-3 h-full w-full max-w-[150px]">
                         <h1 className="justify-self-center self-center text-2xl">
                             {title}
                         </h1>
                         <div className="flex flex-col items-center gap-y-2 overflow-y-scroll h-full p-2 no-scrollbar">
-                            <ActiveSectionContextProvider>
                                 {
                                     Array.from(Array(10).keys()).map((i) => {
                                         return <SectionHeader title={`section ${i + 1}`} key={i}/>
                                     })
                                 }
-                            </ActiveSectionContextProvider>
                         </div>
                     </div>
                     <div className="relative w-full h-full flex flex-col">
@@ -64,6 +63,7 @@ export default function ClickGUI({title}) {
                         </div>
                     </div>
                 </div>
+                </ActiveSectionContextProvider>
             </motion.div>
         </AnimatePresence>
     );

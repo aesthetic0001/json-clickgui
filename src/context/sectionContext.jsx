@@ -2,8 +2,8 @@ import React, {createContext, useContext, useState} from "react";
 
 export const ActiveSectionContext = createContext(null);
 
-export default function ActiveSectionContextProvider({children}) {
-    const [activeSection, setActiveSection] = useState(null);
+export default function ActiveSectionContextProvider({initialSection, children}) {
+    const [activeSection, setActiveSection] = useState(initialSection);
 
     return (
         <ActiveSectionContext.Provider
