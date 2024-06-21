@@ -21,7 +21,22 @@ function Field({name, tooltip, children}) {
     );
 }
 
-export default function BooleanField({name, tooltip, defaultValue}) {
+export function TextField({name, tooltip, defaultValue}) {
+    const [value, setValue] = useState(defaultValue);
+
+    return (
+        <Field name={name} tooltip={tooltip}>
+            <input
+                type="text"
+                value={value}
+                onChange={(e) => setValue(e.target.value)}
+                className="w-1/2 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+            />
+        </Field>
+    );
+}
+
+export function BooleanField({name, tooltip, defaultValue}) {
     const [active, setActive] = useState(defaultValue);
 
     return (

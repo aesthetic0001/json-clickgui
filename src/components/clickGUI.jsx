@@ -3,7 +3,15 @@ import SectionHeader from "./sectionHeader";
 import Feature from "./feature";
 import ActiveSectionContextProvider from "../context/sectionContext";
 import {useState} from "react";
-import BooleanField, {ArrayField, DropdownField, NestedFeatures, ObjectField, SliderField} from "./featureOptions";
+import {
+    BooleanField,
+    ArrayField,
+    DropdownField,
+    NestedFeatures,
+    ObjectField,
+    SliderField,
+    TextField
+} from "./featureOptions";
 
 export default function ClickGUI({title}) {
     const [search, setSearch] = useState("");
@@ -55,6 +63,7 @@ export default function ClickGUI({title}) {
                                     <DropdownField name={"Dropdown"} tooltip={"Select an option"} defaultValue={"Option 1"} options={["Option 1", "Option 2", "Option 3"]}/>
                                     <ArrayField name={"Array"} tooltip={"Add or remove items"} defaultValue={["Item 1", "Item 2", "Item 3"]}/>
                                     <ObjectField name={"Object"} tooltip={"Add or remove items"} defaultValue={{key1: "value1", key2: "value2", key3: "value3"}}/>
+                                    <TextField name={"Text"} tooltip={"Enter some text"} defaultValue={"Text"}/>
                                     <NestedFeatures name={"Nested Features"} tooltip={"Description"}>
                                         <BooleanField name={"Nested Boolean"} tooltip={"Enable this feature"} defaultValue={false}/>
                                     </NestedFeatures>

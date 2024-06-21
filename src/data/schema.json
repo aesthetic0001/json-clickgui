@@ -1,36 +1,35 @@
 {
   "section one": {
-    "string field": "text",
-    "number slider": [
-      "number",
-      0,
-      100,
-      1
-    ],
-    "boolean field": "bool",
-    "color field": "color",
-    "array field": [
-      "array",
-      "string",
-      "number",
-      "bool"
-    ],
-    "object field": {
-      "string field": "text",
-      "number slider": [
-        "number",
-        0,
-        100,
-        1
-      ],
-      "boolean field": "bool",
-      "color field": "color",
-      "array field": [
-        "array",
-        ["string", "number", "bool"]
+    "string field": {
+      "type": "text",
+      "default": "default value"
+    },
+    "number slider": {
+      "type": "number",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "default": 50
+    },
+    "boolean field": {
+      "type": "bool",
+      "default": true
+    },
+    "array field": {
+      "type": "array",
+      "default": [
+        "one",
+        "two",
+        "three"
       ]
+    },
+    "object field": {
+      "type": "object",
+      "keysImmutable": true,
+      "default": {
+        "key1": "value1",
+        "key2": "value2"
+      }
     }
-  },
-  "section two": {
   }
 }
