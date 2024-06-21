@@ -95,7 +95,7 @@ export default function ClickGUI({title}) {
                             <div className="absolute inset-0 bg-content-bg bg-opacity-50 rounded-3xl -z-10"></div>
                             <div className="relative flex flex-col gap-y-2 w-full h-full">
                                 <div
-                                    className="mt-3 w-1/2 self-center bg-gradient-ring hover:bg-gradient-ring-hover rounded-3xl p-[2px] transition-all ease-in-out">
+                                    className="mt-3 w-1/2 self-center bg-gradient-ring rounded-3xl p-[2px] transition-all ease-in-out">
                                     <input
                                         type="text"
                                         className="p-2 bg-search-bg bg-opacity-75 backdrop-blur-3xl text-text-primary placeholder-gray-100 text-center placeholder:text-center rounded-3xl w-full outline-none"

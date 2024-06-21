@@ -6,7 +6,7 @@ export default function SectionHeader({title}) {
     const {activeSection, setActiveSection} = useActiveSectionContext();
 
     return (<button
-        className={clsx("select-none rounded-md w-full p-2 transition-all ease-in-out", activeSection === title ? "font-semibold bg-violet-400 shadow-purple-glow" : "bg-content-bg hover:bg-gray-700")}
+        className={clsx("select-none rounded-xl w-full p-2 transition-all ease-in-out", activeSection === title ? "font-semibold bg-button-active shadow-purple-glow" : "bg-content-bg hover:bg-button-hover")}
         onFocus={() => setActiveSection(title)}
     >
         {title}

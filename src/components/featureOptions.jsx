@@ -30,7 +30,7 @@ export function TextField({name, tooltip, defaultValue}) {
                 type="text"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                className="w-1/2 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                className="w-1/2 h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 self-end outline-none"
             />
         </Field>
     );
@@ -42,13 +42,13 @@ export function BooleanField({name, tooltip, defaultValue}) {
     return (
         <Field name={name} tooltip={tooltip}>
             <button
-                className="w-10 h-5 bg-gray-600 rounded-full p-1 transition-all ease-in-out"
+                className="w-10 h-5 bg-field-bg rounded-full p-1 transition-all ease-in-out"
                 onClick={() => setActive(!active)}
             >
                 <div
                     className={
                         clsx("w-3 h-3 rounded-full transition-all ease-in-out",
-                            active ? "bg-violet-400 translate-x-5" : "bg-gray-400"
+                            active ? "bg-button-active translate-x-5" : "bg-button-inactive"
                         )
                     }
                 />
@@ -72,11 +72,11 @@ export function SliderField({name, tooltip, defaultValue, min, max, step}) {
                         step={step}
                         value={value}
                         onChange={(e) => setValue(e.target.value)}
-                        className="w-full max-w-fit h-2 bg-gray-600 accent-violet-400 rounded-full"
+                        className="w-full max-w-fit h-2 bg-field-bg accent-button-active rounded-full"
                         onDrag={(e) => e.preventDefault()}
                     />
                     <input type="text" value={value} onChange={(e) => setValue(e.target.value)}
-                           className="w-full max-w-[50%] h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 outline-none"/>
+                           className="w-full max-w-[50%] h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 outline-none"/>
                 </div>
                 <span className="text-gray-500">{max}</span>
             </div>
@@ -92,7 +92,7 @@ export function DropdownField({name, tooltip, defaultValue, options}) {
             <select
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
-                className="w-1/2 h-10 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                className="w-1/2 h-10 bg-field-bg rounded-full p-1 text-center text-gray-500 self-end outline-none"
             >
                 {options.map((option, index) => {
                     return <option value={option} key={index}>{option}</option>
@@ -137,12 +137,12 @@ export function ArrayField({name, tooltip, defaultValue}) {
                                 document.getElementById(id).children[index - 1].focus();
                             }
                         }}
-                        className="w-full max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                        className="w-full max-w-20 h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 self-end outline-none"
                     />
                 })}
             </div>
             <FaPlus
-                className="shrink-0 w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
+                className="shrink-0 w-5 h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
                 onClick={() => {
                     setValue([...value, ""])
                 }}/>
@@ -217,7 +217,7 @@ export function ObjectField({name, tooltip, defaultValue}) {
                                             }, 0);
                                         }
                                     }}
-                                    className="w-full max-w-20 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                                    className="w-full max-w-20 h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 self-end outline-none"
                                 />
                                 <input
                                     type="text"
@@ -244,7 +244,7 @@ export function ObjectField({name, tooltip, defaultValue}) {
                                             }, 0);
                                         }
                                     }}
-                                    className="w-full h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end outline-none"
+                                    className="w-full h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 self-end outline-none"
                                 />
                             </div>
                         );
@@ -252,7 +252,7 @@ export function ObjectField({name, tooltip, defaultValue}) {
                 }
             </div>
             <FaPlus
-                className="shrink-0 w-5 h-5 bg-gray-600 rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
+                className="shrink-0 w-5 h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 self-end cursor-pointer"
                 onClick={() => {
                     const res = {...value, "": ""}
                     setValue(res)
