@@ -50,7 +50,7 @@
       "nested fields": {
         "tooltip": "nested fields",
         "nested boolean": {
-          "type": "bool",
+          "type": "boolean",
           "tooltip": "check to enable/disable",
           "default": false
         }

@@ -262,7 +262,7 @@ export function ObjectField({name, tooltip, defaultValue}) {
     );
 }
 
-export function NestedFeatures({name, tooltip, children}) {
+export function NestedFields({name, tooltip, children}) {
     // todo: collapse children when parent is collapsed
     const [collapsed, setCollapsed] = useState(true);
     const size = useWindowSize();

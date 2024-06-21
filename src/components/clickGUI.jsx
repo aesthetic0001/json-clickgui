@@ -68,7 +68,7 @@ export default function ClickGUI({title}) {
                                                             "default": 50
                                                         },
                                                         "boolean field": {
-                                                            "type": "bool",
+                                                            "type": "boolean",
                                                             "tooltip": "check to disable/enable",
                                                             "default": true
                                                         },
@@ -103,7 +103,7 @@ export default function ClickGUI({title}) {
                                                         "nested fields": {
                                                             "tooltip": "nested fields",
                                                             "nested boolean": {
-                                                                "type": "bool",
+                                                                "type": "boolean",
                                                                 "tooltip": "check to enable/disable",
                                                                 "default": false
                                                             }
