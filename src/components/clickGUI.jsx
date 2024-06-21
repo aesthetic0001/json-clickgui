@@ -54,6 +54,7 @@ export default function ClickGUI({title}) {
                                             {
                                                 "section 1": {
                                                     "feature": {
+                                                        "description": "this is a description",
                                                         "string field": {
                                                             "type": "text",
                                                             "tooltip": "enter a string",

@@ -1,6 +1,7 @@
 {
   "section 1": {
     "feature": {
+      "description": "this is a description",
       "string field": {
         "type": "text",
         "tooltip": "enter a string",
@@ -15,7 +16,7 @@
         "default": 50
       },
       "boolean field": {
-        "type": "bool",
+        "type": "boolean",
         "tooltip": "check to disable/enable",
         "default": true
       },

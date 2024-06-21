@@ -66,13 +66,9 @@ export default function parseSchema(schema, layer = 0) {
         Object.keys(schema[section]).forEach((feature) => {
             const featureChildren = parseFeature(schema[section][feature])
 
-            const newFeature = layer === 0 ? <Feature name={feature} section={section}>
+            features.push(<Feature key={`${section}-${feature}`} name={feature} section={section} description={schema[section][feature].description}>
                 {featureChildren}
-            </Feature> : <NestedFields name={feature}>
-                {featureChildren}
-            </NestedFields>
-
-            features.push(newFeature)
+            </Feature>)
         })
     })
 
