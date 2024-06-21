@@ -9,6 +9,7 @@ import {
 } from "../components/featureOptions";
 
 import Feature from "../components/feature";
+import SectionHeader from "../components/sectionHeader";
 
 function parseFeature(feature) {
     const featureChildren = []
@@ -62,7 +63,8 @@ export default function parseSchema(schema, layer = 0) {
     const features = []
 
     Object.keys(schema).forEach((section) => {
-        sections.push(section)
+        sections.push(<SectionHeader title={section} key={section}/>)
+
         Object.keys(schema[section]).forEach((feature) => {
             const featureChildren = parseFeature(schema[section][feature])
 
