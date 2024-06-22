@@ -4,7 +4,7 @@ import {FaPlus} from "react-icons/fa";
 import useWindowSize from "../hooks/windowSize";
 import {produce} from "immer";
 
-function Field({name, tooltip, children}) {
+function Fields({name, tooltip, children}) {
     const size = useWindowSize();
 
     return (
@@ -21,26 +21,34 @@ function Field({name, tooltip, children}) {
     );
 }
 
-export function TextField({name, tooltip, defaultValue}) {
+export function TextField({name, tooltip, defaultValue, onChange}) {
     const [value, setValue] = useState(defaultValue);
 
+    useMemo(() => {
+        onChange(value);
+    }, [onChange, value]);
+
     return (
-        <Field name={name} tooltip={tooltip}>
+        <Fields name={name} tooltip={tooltip}>
             <input
                 type="text"
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
                 className="w-1/2 h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 self-end outline-none"
             />
-        </Field>
+        </Fields>
     );
 }
 
-export function BooleanField({name, tooltip, defaultValue}) {
+export function BooleanField({name, tooltip, defaultValue, onChange}) {
     const [active, setActive] = useState(defaultValue);
 
+    useMemo(() => {
+        onChange(active);
+    }, [onChange, active]);
+
     return (
-        <Field name={name} tooltip={tooltip}>
+        <Fields name={name} tooltip={tooltip}>
             <button
                 className="w-10 h-5 bg-field-bg rounded-full p-1 transition-all ease-in-out"
                 onClick={() => setActive(!active)}
@@ -53,15 +61,19 @@ export function BooleanField({name, tooltip, defaultValue}) {
                     }
                 />
             </button>
-        </Field>
+        </Fields>
     );
 }
 
-export function SliderField({name, tooltip, defaultValue, min, max, step}) {
+export function SliderField({name, tooltip, defaultValue, min, max, step, onChange}) {
     const [value, setValue] = useState(defaultValue);
 
+    useMemo(() => {
+        onChange(value);
+    }, [onChange, value]);
+
     return (
-        <Field name={name} tooltip={tooltip}>
+        <Fields name={name} tooltip={tooltip}>
             <div className="flex flex-row align-text-top">
                 <span className="text-gray-500">{min}</span>
                 <div className="flex flex-col gap-y-2 items-center">
@@ -71,24 +83,28 @@ export function SliderField({name, tooltip, defaultValue, min, max, step}) {
                         max={max}
                         step={step}
                         value={value}
-                        onChange={(e) => setValue(e.target.value)}
+                        onChange={(e) => setValue(parseInt(e.target.value))}
                         className="w-full max-w-fit h-2 bg-field-bg accent-button-active rounded-full"
                         onDrag={(e) => e.preventDefault()}
                     />
-                    <input type="text" value={value} onChange={(e) => setValue(e.target.value)}
+                    <input type="text" value={value} onChange={(e) => setValue(parseInt(e.target.value))}
                            className="w-full max-w-[50%] h-5 bg-field-bg rounded-full p-1 text-center text-gray-500 outline-none"/>
                 </div>
                 <span className="text-gray-500">{max}</span>
             </div>
-        </Field>
+        </Fields>
     );
 }
 
-export function DropdownField({name, tooltip, defaultValue, options}) {
+export function DropdownField({name, tooltip, defaultValue, options, onChange}) {
     const [value, setValue] = useState(defaultValue);
 
+    useMemo(() => {
+        onChange(value);
+    }, [onChange, value]);
+
     return (
-        <Field name={name} tooltip={tooltip}>
+        <Fields name={name} tooltip={tooltip}>
             <select
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
@@ -98,16 +114,20 @@ export function DropdownField({name, tooltip, defaultValue, options}) {
                     return <option value={option} key={index}>{option}</option>
                 })}
             </select>
-        </Field>
+        </Fields>
     );
 }
 
-export function ArrayField({name, tooltip, defaultValue}) {
+export function ArrayField({name, tooltip, defaultValue, onChange}) {
     const [value, setValue] = useState(defaultValue);
     const id = useMemo(() => Math.random().toString(36).substring(7), []);
 
+    useMemo(() => {
+        onChange(value);
+    }, [onChange, value]);
+
     return (
-        <Field name={name} tooltip={tooltip}>
+        <Fields name={name} tooltip={tooltip}>
             <div className="flex flex-col gap-y-2 overflow-y-scroll max-h-20 no-scrollbar ml-auto" id={id}>
                 {/*    render the array items */}
                 {value.map((item, index) => {
@@ -146,7 +166,7 @@ export function ArrayField({name, tooltip, defaultValue}) {
                 onClick={() => {
                     setValue([...value, ""])
                 }}/>
-        </Field>
+        </Fields>
     );
 }
 
@@ -171,13 +191,17 @@ function toObject(array) {
     return result;
 }
 
-export function ObjectField({name, tooltip, defaultValue}) {
+export function ObjectField({name, tooltip, defaultValue, onChange}) {
     const [value, setValue] = useState(defaultValue);
     const [tempArray, setTempArray] = useState(toArray(value));
     const id = useMemo(() => Math.random().toString(36).substring(7), []);
 
+    useMemo(() => {
+        onChange(value);
+    }, [onChange, value]);
+
     return (
-        <Field name={name} tooltip={tooltip}>
+        <Fields name={name} tooltip={tooltip}>
             <div className="flex flex-col gap-y-2 max-h-20 overflow-y-scroll no-scrollbar ml-auto" id={id}>
                 {/*    modify the array to change the object indirectly, then toObject when out of focus */}
                 {
@@ -258,7 +282,7 @@ export function ObjectField({name, tooltip, defaultValue}) {
                     setValue(res)
                     setTempArray(toArray(res))
                 }}/>
-        </Field>
+        </Fields>
     );
 }
 
