@@ -21,69 +21,41 @@ function parseFeature(feature, data, path, setData) {
     const featureChildren = []
     Object.keys(feature).forEach((fieldName) => {
         const field = feature[fieldName]
+        const onChange = function (newValue) {
+            setData(produce(data, draft => {
+                deepValue(draft, path)[fieldName] = newValue
+            }))
+        }
+
         // eslint-disable-next-line default-case
         switch (field.type) {
             case "text": {
                 // set as child of newFeature
                 return featureChildren.push(<TextField name={fieldName} tooltip={field.tooltip}
-                                                       defaultValue={field.default} onChange={(newValue) => {
-                    setData(produce(data, draft => {
-                        deepValue(draft, path)[fieldName] = newValue
-                    }))
-                }}/>)
+                                                       defaultValue={field.default} onChange={onChange}/>)
             }
             case "number": {
                 return featureChildren.push(<SliderField name={fieldName} tooltip={field.tooltip}
                                                          defaultValue={field.default}
                                                          min={field.min} max={field.max}
-                                                         step={field.step} onChange={
-                    (newValue) => {
-                        setData(produce(data, draft => {
-                            deepValue(draft, path)[fieldName] = newValue
-                        }))
-                    }
-                }/>)
+                                                         step={field.step} onChange={onChange}/>)
             }
             case "boolean": {
                 return featureChildren.push(<BooleanField name={fieldName} tooltip={field.tooltip}
-                                                          defaultValue={field.default} onChange={
-                    (newValue) => {
-                        setData(produce(data, draft => {
-                            deepValue(draft, path)[fieldName] = newValue
-                        }))
-                    }
-                }/>)
+                                                          defaultValue={field.default} onChange={onChange}/>)
             }
             case "array": {
                 return featureChildren.push(<ArrayField name={fieldName} tooltip={field.tooltip}
-                                                        defaultValue={field.default} onChange={
-                    (newValue) => {
-                        setData(produce(data, draft => {
-                            deepValue(draft, path)[fieldName] = newValue
-                        }))
-                    }
-                }/>)
+                                                        defaultValue={field.default} onChange={onChange}/>)
             }
             case "object": {
                 return featureChildren.push(<ObjectField name={fieldName} tooltip={field.tooltip}
-                                                         defaultValue={field.default} onChange={
-                    (newValue) => {
-                        setData(produce(data, draft => {
-                            deepValue(draft, path)[fieldName] = newValue
-                        }))
-                    }
-                }/>)
+                                                         defaultValue={field.default} onChange={onChange}/>)
             }
             case "enum": {
                 return featureChildren.push(<DropdownField name={fieldName} tooltip={field.tooltip}
                                                            defaultValue={field.default}
-                                                           options={field.values} onChange={
-                    (newValue) => {
-                        setData(produce(data, draft => {
-                            deepValue(draft, path)[fieldName] = newValue
-                        }))
-                    }
-                }/>)
+                                                           options={field.values} onChange={onChange}/>)
             }
         }
 
